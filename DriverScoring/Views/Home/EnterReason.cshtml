@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "EnterReason";
+}
+
+<html>
+<head><link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" /></head>
+
+<body>
+    <div class="header">
+        <div class="accountname">@ViewData["Name"]</div>
+        <a href="@Url.Action("LogOut")">Выйти из аккаунта</a>
+        <a href="@Url.Action("AdministratorPanel")">На главную</a>
+    </div>
+    <div class="content">
+        @using (Html.BeginForm())
+        {
+            <input type="text" name="ReasonField" placeholder="Причина отказа" />
+            <input type="submit" value="Подтвердить" />
+        }
+    </div>
+    <div class="footer"></div>
+</body>
+</html>
+

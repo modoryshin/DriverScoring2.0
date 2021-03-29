@@ -1,0 +1,38 @@
+﻿.field{
+   margin-top: 10px; 
+}
+
+.formcontainer{
+    text-align:center;
+    vertical-align:middle;
+}
+
+.formelement{
+    display:inline-block;
+}
+
+.fieldTitle{
+    text-align:left;
+    margin-bottom:10px;
+}
+
+.splitString{
+    text-align:center;
+}
+
+.adminMenuPanel{
+    background-color:deepskyblue;
+    padding:50px;
+}
+
+.menubutton{
+    padding:20px;
+}
+
+.activeWindow{
+    background-color:lightblue;
+}
+
+.mainPanel{
+    display:inline-block;
+}

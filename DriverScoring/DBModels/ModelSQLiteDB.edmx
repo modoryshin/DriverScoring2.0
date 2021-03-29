@@ -1,0 +1,905 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище mainModel" Provider="System.Data.SQLite.EF6" ProviderManifestToken="datasource=C:\Users\User\Source\Repos\DriverScoring2\DriverScoring\DriverScoringSQLiteDB.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Аналитики">
+          <Key>
+            <PropertyRef Name="АналитикID" />
+          </Key>
+          <Property Name="АналитикID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ПользовательID" Type="integer" />
+        </EntityType>
+        <EntityType Name="Анкета">
+          <Key>
+            <PropertyRef Name="АнкетаID" />
+          </Key>
+          <Property Name="АнкетаID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ВодительID" Type="integer" />
+          <Property Name="Возраст" Type="integer" />
+          <Property Name="Дети" Type="integer" />
+          <Property Name="СемейноеПоложение" Type="integer" />
+          <Property Name="ЕстьКредит" Type="integer" />
+          <Property Name="КредитнаяИстория" Type="integer" />
+          <Property Name="Доход" Type="integer" />
+          <Property Name="Трудоустройство" Type="integer" />
+          <Property Name="НаличиеМашины" Type="integer" />
+          <Property Name="АварииЗаПятьЛет" Type="integer" />
+          <Property Name="СтажРаботы" Type="integer" />
+          <Property Name="СтажВождения" Type="integer" />
+        </EntityType>
+        <EntityType Name="Водители">
+          <Key>
+            <PropertyRef Name="ВодительID" />
+          </Key>
+          <Property Name="ДатаРегистрации" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ВодительID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ПользовательID" Type="integer" />
+          <Property Name="ДеньРождения" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ПаспортныеДанные" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Запросы">
+          <Key>
+            <PropertyRef Name="ЗапросID" />
+          </Key>
+          <Property Name="ЗапросID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ДатаЗапроса" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ВремяПолученияМашины" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ВремяВыдачиМашины" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="МашинаID" Type="integer" />
+          <Property Name="ВодительID" Type="integer" />
+          <Property Name="ЗапросРассмотрен" Type="integer" />
+        </EntityType>
+        <EntityType Name="Машины">
+          <Key>
+            <PropertyRef Name="МашинаID" />
+          </Key>
+          <Property Name="МашинаID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="МодельID" Type="integer" />
+          <Property Name="СостояниеID" Type="integer" />
+          <Property Name="MinScore" Type="integer" />
+          <Property Name="СтоимостьЧас" Type="integer" />
+          <Property Name="Номер" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="МоделиМашин">
+          <Key>
+            <PropertyRef Name="МодельID" />
+          </Key>
+          <Property Name="МодельID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ФирмаID" Type="integer" />
+          <Property Name="ЛошСил" Type="integer" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="ПользовательID" />
+          </Key>
+          <Property Name="ПользовательID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ВодительID" Type="integer" />
+          <Property Name="АналитикID" Type="integer" />
+        </EntityType>
+        <EntityType Name="РезультатЗапроса">
+          <Key>
+            <PropertyRef Name="РезультатID" />
+          </Key>
+          <Property Name="РезультатID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="АналитикID" Type="integer" />
+          <Property Name="МашинаВыдана" Type="integer" />
+          <Property Name="ПричинаОтказа" Type="nvarchar" MaxLength="2147483647" />
+          <Property Name="ЗапросID" Type="integer" />
+        </EntityType>
+        <EntityType Name="Состояния">
+          <Key>
+            <PropertyRef Name="СостояниеID" />
+          </Key>
+          <Property Name="СостояниеID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Описание" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <EntityType Name="Фирмы">
+          <Key>
+            <PropertyRef Name="ФирмаID" />
+          </Key>
+          <Property Name="ФирмаID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Название" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Фотографии">
+          <Key>
+            <PropertyRef Name="ФотоID" />
+          </Key>
+          <Property Name="ФотоID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="МашинаID" Type="integer" />
+          <Property Name="Фото" Type="blob" />
+        </EntityType>
+        <EntityType Name="Штрафы">
+          <Key>
+            <PropertyRef Name="ШтрафID" />
+          </Key>
+          <Property Name="ШтрафID" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ВодительID" Type="integer" />
+          <Property Name="ДополнительнаяИнформация" Type="nvarchar" MaxLength="2147483647" />
+        </EntityType>
+        <Association Name="FK_Аналитики_0_0">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="Аналитики" Type="Self.Аналитики" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ПользовательID" />
+            </Principal>
+            <Dependent Role="Аналитики">
+              <PropertyRef Name="ПользовательID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Анкета_0_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Анкета" Type="Self.Анкета" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Анкета">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Водители_0_0">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="Водители" Type="Self.Водители" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ПользовательID" />
+            </Principal>
+            <Dependent Role="Водители">
+              <PropertyRef Name="ПользовательID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Запросы_0_0">
+          <End Role="Машины" Type="Self.Машины" Multiplicity="0..1" />
+          <End Role="Запросы" Type="Self.Запросы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Машины">
+              <PropertyRef Name="МашинаID" />
+            </Principal>
+            <Dependent Role="Запросы">
+              <PropertyRef Name="МашинаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Запросы_1_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Запросы" Type="Self.Запросы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Запросы">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Машины_0_0">
+          <End Role="МоделиМашин" Type="Self.МоделиМашин" Multiplicity="0..1" />
+          <End Role="Машины" Type="Self.Машины" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="МоделиМашин">
+              <PropertyRef Name="МодельID" />
+            </Principal>
+            <Dependent Role="Машины">
+              <PropertyRef Name="МодельID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Машины_1_0">
+          <End Role="Состояния" Type="Self.Состояния" Multiplicity="0..1" />
+          <End Role="Машины" Type="Self.Машины" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Состояния">
+              <PropertyRef Name="СостояниеID" />
+            </Principal>
+            <Dependent Role="Машины">
+              <PropertyRef Name="СостояниеID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_МоделиМашин_0_0">
+          <End Role="Фирмы" Type="Self.Фирмы" Multiplicity="0..1" />
+          <End Role="МоделиМашин" Type="Self.МоделиМашин" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Фирмы">
+              <PropertyRef Name="ФирмаID" />
+            </Principal>
+            <Dependent Role="МоделиМашин">
+              <PropertyRef Name="ФирмаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_0_0">
+          <End Role="Аналитики" Type="Self.Аналитики" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Аналитики">
+              <PropertyRef Name="АналитикID" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="АналитикID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_1_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РезультатЗапроса_0_0">
+          <End Role="Запросы" Type="Self.Запросы" Multiplicity="0..1" />
+          <End Role="РезультатЗапроса" Type="Self.РезультатЗапроса" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Запросы">
+              <PropertyRef Name="ЗапросID" />
+            </Principal>
+            <Dependent Role="РезультатЗапроса">
+              <PropertyRef Name="ЗапросID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РезультатЗапроса_1_0">
+          <End Role="Аналитики" Type="Self.Аналитики" Multiplicity="0..1" />
+          <End Role="РезультатЗапроса" Type="Self.РезультатЗапроса" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Аналитики">
+              <PropertyRef Name="АналитикID" />
+            </Principal>
+            <Dependent Role="РезультатЗапроса">
+              <PropertyRef Name="АналитикID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Фотографии_0_0">
+          <End Role="Машины" Type="Self.Машины" Multiplicity="0..1" />
+          <End Role="Фотографии" Type="Self.Фотографии" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Машины">
+              <PropertyRef Name="МашинаID" />
+            </Principal>
+            <Dependent Role="Фотографии">
+              <PropertyRef Name="МашинаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Штрафы_0_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Штрафы" Type="Self.Штрафы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Штрафы">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище mainModelContainer">
+          <EntitySet Name="Аналитики" EntityType="Self.Аналитики" store:Type="Tables" />
+          <EntitySet Name="Анкета" EntityType="Self.Анкета" store:Type="Tables" />
+          <EntitySet Name="Водители" EntityType="Self.Водители" store:Type="Tables" />
+          <EntitySet Name="Запросы" EntityType="Self.Запросы" store:Type="Tables" />
+          <EntitySet Name="Машины" EntityType="Self.Машины" store:Type="Tables" />
+          <EntitySet Name="МоделиМашин" EntityType="Self.МоделиМашин" store:Type="Tables" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" store:Type="Tables" />
+          <EntitySet Name="РезультатЗапроса" EntityType="Self.РезультатЗапроса" store:Type="Tables" />
+          <EntitySet Name="Состояния" EntityType="Self.Состояния" store:Type="Tables" />
+          <EntitySet Name="Фирмы" EntityType="Self.Фирмы" store:Type="Tables" />
+          <EntitySet Name="Фотографии" EntityType="Self.Фотографии" store:Type="Tables" />
+          <EntitySet Name="Штрафы" EntityType="Self.Штрафы" store:Type="Tables" />
+          <AssociationSet Name="FK_Аналитики_0_0" Association="Self.FK_Аналитики_0_0">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Аналитики" EntitySet="Аналитики" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Анкета_0_0" Association="Self.FK_Анкета_0_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Анкета" EntitySet="Анкета" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Водители_0_0" Association="Self.FK_Водители_0_0">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Водители" EntitySet="Водители" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Запросы_0_0" Association="Self.FK_Запросы_0_0">
+            <End Role="Машины" EntitySet="Машины" />
+            <End Role="Запросы" EntitySet="Запросы" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Запросы_1_0" Association="Self.FK_Запросы_1_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Запросы" EntitySet="Запросы" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Машины_0_0" Association="Self.FK_Машины_0_0">
+            <End Role="МоделиМашин" EntitySet="МоделиМашин" />
+            <End Role="Машины" EntitySet="Машины" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Машины_1_0" Association="Self.FK_Машины_1_0">
+            <End Role="Состояния" EntitySet="Состояния" />
+            <End Role="Машины" EntitySet="Машины" />
+          </AssociationSet>
+          <AssociationSet Name="FK_МоделиМашин_0_0" Association="Self.FK_МоделиМашин_0_0">
+            <End Role="Фирмы" EntitySet="Фирмы" />
+            <End Role="МоделиМашин" EntitySet="МоделиМашин" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_0_0" Association="Self.FK_Пользователи_0_0">
+            <End Role="Аналитики" EntitySet="Аналитики" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_1_0" Association="Self.FK_Пользователи_1_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РезультатЗапроса_0_0" Association="Self.FK_РезультатЗапроса_0_0">
+            <End Role="Запросы" EntitySet="Запросы" />
+            <End Role="РезультатЗапроса" EntitySet="РезультатЗапроса" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РезультатЗапроса_1_0" Association="Self.FK_РезультатЗапроса_1_0">
+            <End Role="Аналитики" EntitySet="Аналитики" />
+            <End Role="РезультатЗапроса" EntitySet="РезультатЗапроса" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Фотографии_0_0" Association="Self.FK_Фотографии_0_0">
+            <End Role="Машины" EntitySet="Машины" />
+            <End Role="Фотографии" EntitySet="Фотографии" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Штрафы_0_0" Association="Self.FK_Штрафы_0_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Штрафы" EntitySet="Штрафы" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="mainModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Аналитики">
+          <Key>
+            <PropertyRef Name="АналитикID" />
+          </Key>
+          <Property Name="АналитикID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ПользовательID" Type="Int64" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Аналитики_0_0" FromRole="Аналитики" ToRole="Пользователи" />
+          <NavigationProperty Name="Пользователи1" Relationship="Self.FK_Пользователи_0_0" FromRole="Аналитики" ToRole="Пользователи" />
+          <NavigationProperty Name="РезультатЗапроса" Relationship="Self.FK_РезультатЗапроса_1_0" FromRole="Аналитики" ToRole="РезультатЗапроса" />
+        </EntityType>
+        <EntityType Name="Анкета">
+          <Key>
+            <PropertyRef Name="АнкетаID" />
+          </Key>
+          <Property Name="АнкетаID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ВодительID" Type="Int64" />
+          <Property Name="Возраст" Type="Int64" />
+          <Property Name="Дети" Type="Int64" />
+          <Property Name="СемейноеПоложение" Type="Int64" />
+          <Property Name="ЕстьКредит" Type="Int64" />
+          <Property Name="КредитнаяИстория" Type="Int64" />
+          <Property Name="Доход" Type="Int64" />
+          <Property Name="Трудоустройство" Type="Int64" />
+          <Property Name="НаличиеМашины" Type="Int64" />
+          <Property Name="АварииЗаПятьЛет" Type="Int64" />
+          <Property Name="СтажРаботы" Type="Int64" />
+          <Property Name="СтажВождения" Type="Int64" />
+          <NavigationProperty Name="Водители" Relationship="Self.FK_Анкета_0_0" FromRole="Анкета" ToRole="Водители" />
+        </EntityType>
+        <EntityType Name="Водители">
+          <Key>
+            <PropertyRef Name="ВодительID" />
+          </Key>
+          <Property Name="ДатаРегистрации" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ВодительID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ПользовательID" Type="Int64" />
+          <Property Name="ДеньРождения" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ПаспортныеДанные" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Анкета" Relationship="Self.FK_Анкета_0_0" FromRole="Водители" ToRole="Анкета" />
+          <NavigationProperty Name="Пользователи" Relationship="Self.FK_Водители_0_0" FromRole="Водители" ToRole="Пользователи" />
+          <NavigationProperty Name="Запросы" Relationship="Self.FK_Запросы_1_0" FromRole="Водители" ToRole="Запросы" />
+          <NavigationProperty Name="Пользователи1" Relationship="Self.FK_Пользователи_1_0" FromRole="Водители" ToRole="Пользователи" />
+          <NavigationProperty Name="Штрафы" Relationship="Self.FK_Штрафы_0_0" FromRole="Водители" ToRole="Штрафы" />
+        </EntityType>
+        <EntityType Name="Запросы">
+          <Key>
+            <PropertyRef Name="ЗапросID" />
+          </Key>
+          <Property Name="ЗапросID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ДатаЗапроса" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ВремяПолученияМашины" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ВремяВыдачиМашины" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="МашинаID" Type="Int64" />
+          <Property Name="ВодительID" Type="Int64" />
+          <Property Name="ЗапросРассмотрен" Type="Int64" />
+          <NavigationProperty Name="Водители" Relationship="Self.FK_Запросы_1_0" FromRole="Запросы" ToRole="Водители" />
+          <NavigationProperty Name="Машины" Relationship="Self.FK_Запросы_0_0" FromRole="Запросы" ToRole="Машины" />
+          <NavigationProperty Name="РезультатЗапроса" Relationship="Self.FK_РезультатЗапроса_0_0" FromRole="Запросы" ToRole="РезультатЗапроса" />
+        </EntityType>
+        <EntityType Name="Машины">
+          <Key>
+            <PropertyRef Name="МашинаID" />
+          </Key>
+          <Property Name="МашинаID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="МодельID" Type="Int64" />
+          <Property Name="СостояниеID" Type="Int64" />
+          <Property Name="MinScore" Type="Int64" />
+          <Property Name="СтоимостьЧас" Type="Int64" />
+          <Property Name="Номер" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Запросы" Relationship="Self.FK_Запросы_0_0" FromRole="Машины" ToRole="Запросы" />
+          <NavigationProperty Name="МоделиМашин" Relationship="Self.FK_Машины_0_0" FromRole="Машины" ToRole="МоделиМашин" />
+          <NavigationProperty Name="Состояния" Relationship="Self.FK_Машины_1_0" FromRole="Машины" ToRole="Состояния" />
+          <NavigationProperty Name="Фотографии" Relationship="Self.FK_Фотографии_0_0" FromRole="Машины" ToRole="Фотографии" />
+        </EntityType>
+        <EntityType Name="МоделиМашин">
+          <Key>
+            <PropertyRef Name="МодельID" />
+          </Key>
+          <Property Name="МодельID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ФирмаID" Type="Int64" />
+          <Property Name="ЛошСил" Type="Int64" />
+          <NavigationProperty Name="Машины" Relationship="Self.FK_Машины_0_0" FromRole="МоделиМашин" ToRole="Машины" />
+          <NavigationProperty Name="Фирмы" Relationship="mainModel.FK_МоделиМашин_0_0" FromRole="МоделиМашин" ToRole="Фирмы" />
+        </EntityType>
+        <EntityType Name="Пользователи">
+          <Key>
+            <PropertyRef Name="ПользовательID" />
+          </Key>
+          <Property Name="ПользовательID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ВодительID" Type="Int64" />
+          <Property Name="АналитикID" Type="Int64" />
+          <NavigationProperty Name="Аналитики" Relationship="Self.FK_Аналитики_0_0" FromRole="Пользователи" ToRole="Аналитики" />
+          <NavigationProperty Name="Аналитики1" Relationship="Self.FK_Пользователи_0_0" FromRole="Пользователи" ToRole="Аналитики" />
+          <NavigationProperty Name="Водители" Relationship="Self.FK_Водители_0_0" FromRole="Пользователи" ToRole="Водители" />
+          <NavigationProperty Name="Водители1" Relationship="Self.FK_Пользователи_1_0" FromRole="Пользователи" ToRole="Водители" />
+        </EntityType>
+        <EntityType Name="РезультатЗапроса">
+          <Key>
+            <PropertyRef Name="РезультатID" />
+          </Key>
+          <Property Name="РезультатID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="АналитикID" Type="Int64" />
+          <Property Name="МашинаВыдана" Type="Int64" />
+          <Property Name="ПричинаОтказа" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <Property Name="ЗапросID" Type="Int64" />
+          <NavigationProperty Name="Аналитики" Relationship="Self.FK_РезультатЗапроса_1_0" FromRole="РезультатЗапроса" ToRole="Аналитики" />
+          <NavigationProperty Name="Запросы" Relationship="Self.FK_РезультатЗапроса_0_0" FromRole="РезультатЗапроса" ToRole="Запросы" />
+        </EntityType>
+        <EntityType Name="Состояния">
+          <Key>
+            <PropertyRef Name="СостояниеID" />
+          </Key>
+          <Property Name="СостояниеID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Описание" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Машины" Relationship="Self.FK_Машины_1_0" FromRole="Состояния" ToRole="Машины" />
+        </EntityType>
+        <EntityType Name="Фирмы">
+          <Key>
+            <PropertyRef Name="ФирмаID" />
+          </Key>
+          <Property Name="ФирмаID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Название" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="МоделиМашин" Relationship="mainModel.FK_МоделиМашин_0_0" FromRole="Фирмы" ToRole="МоделиМашин" />
+        </EntityType>
+        <EntityType Name="Фотографии">
+          <Key>
+            <PropertyRef Name="ФотоID" />
+          </Key>
+          <Property Name="ФотоID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="МашинаID" Type="Int64" />
+          <Property Name="Фото" Type="Binary" MaxLength="2147483647" FixedLength="false" />
+          <NavigationProperty Name="Машины" Relationship="Self.FK_Фотографии_0_0" FromRole="Фотографии" ToRole="Машины" />
+        </EntityType>
+        <EntityType Name="Штрафы">
+          <Key>
+            <PropertyRef Name="ШтрафID" />
+          </Key>
+          <Property Name="ШтрафID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ВодительID" Type="Int64" />
+          <NavigationProperty Name="Водители" Relationship="Self.FK_Штрафы_0_0" FromRole="Штрафы" ToRole="Водители" />
+          <Property Name="ДополнительнаяИнформация" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_Аналитики_0_0">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="Аналитики" Type="Self.Аналитики" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ПользовательID" />
+            </Principal>
+            <Dependent Role="Аналитики">
+              <PropertyRef Name="ПользовательID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_0_0">
+          <End Role="Аналитики" Type="Self.Аналитики" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Аналитики">
+              <PropertyRef Name="АналитикID" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="АналитикID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РезультатЗапроса_1_0">
+          <End Role="Аналитики" Type="Self.Аналитики" Multiplicity="0..1" />
+          <End Role="РезультатЗапроса" Type="Self.РезультатЗапроса" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Аналитики">
+              <PropertyRef Name="АналитикID" />
+            </Principal>
+            <Dependent Role="РезультатЗапроса">
+              <PropertyRef Name="АналитикID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Анкета_0_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Анкета" Type="Self.Анкета" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Анкета">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Водители_0_0">
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="0..1" />
+          <End Role="Водители" Type="Self.Водители" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Пользователи">
+              <PropertyRef Name="ПользовательID" />
+            </Principal>
+            <Dependent Role="Водители">
+              <PropertyRef Name="ПользовательID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Запросы_1_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Запросы" Type="Self.Запросы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Запросы">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Пользователи_1_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Пользователи" Type="Self.Пользователи" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Пользователи">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Штрафы_0_0">
+          <End Role="Водители" Type="Self.Водители" Multiplicity="0..1" />
+          <End Role="Штрафы" Type="Self.Штрафы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Водители">
+              <PropertyRef Name="ВодительID" />
+            </Principal>
+            <Dependent Role="Штрафы">
+              <PropertyRef Name="ВодительID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Запросы_0_0">
+          <End Role="Машины" Type="Self.Машины" Multiplicity="0..1" />
+          <End Role="Запросы" Type="Self.Запросы" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Машины">
+              <PropertyRef Name="МашинаID" />
+            </Principal>
+            <Dependent Role="Запросы">
+              <PropertyRef Name="МашинаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_РезультатЗапроса_0_0">
+          <End Role="Запросы" Type="Self.Запросы" Multiplicity="0..1" />
+          <End Role="РезультатЗапроса" Type="Self.РезультатЗапроса" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Запросы">
+              <PropertyRef Name="ЗапросID" />
+            </Principal>
+            <Dependent Role="РезультатЗапроса">
+              <PropertyRef Name="ЗапросID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Машины_0_0">
+          <End Role="МоделиМашин" Type="Self.МоделиМашин" Multiplicity="0..1" />
+          <End Role="Машины" Type="Self.Машины" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="МоделиМашин">
+              <PropertyRef Name="МодельID" />
+            </Principal>
+            <Dependent Role="Машины">
+              <PropertyRef Name="МодельID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Машины_1_0">
+          <End Role="Состояния" Type="Self.Состояния" Multiplicity="0..1" />
+          <End Role="Машины" Type="Self.Машины" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Состояния">
+              <PropertyRef Name="СостояниеID" />
+            </Principal>
+            <Dependent Role="Машины">
+              <PropertyRef Name="СостояниеID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Фотографии_0_0">
+          <End Role="Машины" Type="Self.Машины" Multiplicity="0..1" />
+          <End Role="Фотографии" Type="Self.Фотографии" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Машины">
+              <PropertyRef Name="МашинаID" />
+            </Principal>
+            <Dependent Role="Фотографии">
+              <PropertyRef Name="МашинаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="mainEntitiesDB" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Аналитики" EntityType="Self.Аналитики" />
+          <EntitySet Name="Анкета" EntityType="Self.Анкета" />
+          <EntitySet Name="Водители" EntityType="Self.Водители" />
+          <EntitySet Name="Запросы" EntityType="Self.Запросы" />
+          <EntitySet Name="Машины" EntityType="Self.Машины" />
+          <EntitySet Name="МоделиМашин" EntityType="Self.МоделиМашин" />
+          <EntitySet Name="Пользователи" EntityType="Self.Пользователи" />
+          <EntitySet Name="РезультатЗапроса" EntityType="Self.РезультатЗапроса" />
+          <EntitySet Name="Состояния" EntityType="Self.Состояния" />
+          <EntitySet Name="Фирмы" EntityType="Self.Фирмы" />
+          <EntitySet Name="Фотографии" EntityType="Self.Фотографии" />
+          <EntitySet Name="Штрафы" EntityType="Self.Штрафы" />
+          <AssociationSet Name="FK_Аналитики_0_0" Association="Self.FK_Аналитики_0_0">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Аналитики" EntitySet="Аналитики" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_0_0" Association="Self.FK_Пользователи_0_0">
+            <End Role="Аналитики" EntitySet="Аналитики" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РезультатЗапроса_1_0" Association="Self.FK_РезультатЗапроса_1_0">
+            <End Role="Аналитики" EntitySet="Аналитики" />
+            <End Role="РезультатЗапроса" EntitySet="РезультатЗапроса" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Анкета_0_0" Association="Self.FK_Анкета_0_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Анкета" EntitySet="Анкета" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Водители_0_0" Association="Self.FK_Водители_0_0">
+            <End Role="Пользователи" EntitySet="Пользователи" />
+            <End Role="Водители" EntitySet="Водители" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Запросы_1_0" Association="Self.FK_Запросы_1_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Запросы" EntitySet="Запросы" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Пользователи_1_0" Association="Self.FK_Пользователи_1_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Пользователи" EntitySet="Пользователи" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Штрафы_0_0" Association="Self.FK_Штрафы_0_0">
+            <End Role="Водители" EntitySet="Водители" />
+            <End Role="Штрафы" EntitySet="Штрафы" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Запросы_0_0" Association="Self.FK_Запросы_0_0">
+            <End Role="Машины" EntitySet="Машины" />
+            <End Role="Запросы" EntitySet="Запросы" />
+          </AssociationSet>
+          <AssociationSet Name="FK_РезультатЗапроса_0_0" Association="Self.FK_РезультатЗапроса_0_0">
+            <End Role="Запросы" EntitySet="Запросы" />
+            <End Role="РезультатЗапроса" EntitySet="РезультатЗапроса" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Машины_0_0" Association="Self.FK_Машины_0_0">
+            <End Role="МоделиМашин" EntitySet="МоделиМашин" />
+            <End Role="Машины" EntitySet="Машины" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Машины_1_0" Association="Self.FK_Машины_1_0">
+            <End Role="Состояния" EntitySet="Состояния" />
+            <End Role="Машины" EntitySet="Машины" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Фотографии_0_0" Association="Self.FK_Фотографии_0_0">
+            <End Role="Машины" EntitySet="Машины" />
+            <End Role="Фотографии" EntitySet="Фотографии" />
+          </AssociationSet>
+          <AssociationSet Name="FK_МоделиМашин_0_0" Association="mainModel.FK_МоделиМашин_0_0">
+            <End Role="Фирмы" EntitySet="Фирмы" />
+            <End Role="МоделиМашин" EntitySet="МоделиМашин" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_МоделиМашин_0_0">
+          <End Type="mainModel.Фирмы" Role="Фирмы" Multiplicity="0..1" />
+          <End Type="mainModel.МоделиМашин" Role="МоделиМашин" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Фирмы">
+              <PropertyRef Name="ФирмаID" />
+            </Principal>
+            <Dependent Role="МоделиМашин">
+              <PropertyRef Name="ФирмаID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище mainModelContainer" CdmEntityContainer="mainEntitiesDB">
+          <EntitySetMapping Name="Аналитики">
+            <EntityTypeMapping TypeName="mainModel.Аналитики">
+              <MappingFragment StoreEntitySet="Аналитики">
+                <ScalarProperty Name="АналитикID" ColumnName="АналитикID" />
+                <ScalarProperty Name="ПользовательID" ColumnName="ПользовательID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Анкета">
+            <EntityTypeMapping TypeName="mainModel.Анкета">
+              <MappingFragment StoreEntitySet="Анкета">
+                <ScalarProperty Name="АнкетаID" ColumnName="АнкетаID" />
+                <ScalarProperty Name="ВодительID" ColumnName="ВодительID" />
+                <ScalarProperty Name="Возраст" ColumnName="Возраст" />
+                <ScalarProperty Name="Дети" ColumnName="Дети" />
+                <ScalarProperty Name="СемейноеПоложение" ColumnName="СемейноеПоложение" />
+                <ScalarProperty Name="ЕстьКредит" ColumnName="ЕстьКредит" />
+                <ScalarProperty Name="КредитнаяИстория" ColumnName="КредитнаяИстория" />
+                <ScalarProperty Name="Доход" ColumnName="Доход" />
+                <ScalarProperty Name="Трудоустройство" ColumnName="Трудоустройство" />
+                <ScalarProperty Name="НаличиеМашины" ColumnName="НаличиеМашины" />
+                <ScalarProperty Name="АварииЗаПятьЛет" ColumnName="АварииЗаПятьЛет" />
+                <ScalarProperty Name="СтажРаботы" ColumnName="СтажРаботы" />
+                <ScalarProperty Name="СтажВождения" ColumnName="СтажВождения" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Водители">
+            <EntityTypeMapping TypeName="mainModel.Водители">
+              <MappingFragment StoreEntitySet="Водители">
+                <ScalarProperty Name="ДатаРегистрации" ColumnName="ДатаРегистрации" />
+                <ScalarProperty Name="ВодительID" ColumnName="ВодительID" />
+                <ScalarProperty Name="ПользовательID" ColumnName="ПользовательID" />
+                <ScalarProperty Name="ДеньРождения" ColumnName="ДеньРождения" />
+                <ScalarProperty Name="ПаспортныеДанные" ColumnName="ПаспортныеДанные" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Запросы">
+            <EntityTypeMapping TypeName="mainModel.Запросы">
+              <MappingFragment StoreEntitySet="Запросы">
+                <ScalarProperty Name="ЗапросID" ColumnName="ЗапросID" />
+                <ScalarProperty Name="ДатаЗапроса" ColumnName="ДатаЗапроса" />
+                <ScalarProperty Name="ВремяПолученияМашины" ColumnName="ВремяПолученияМашины" />
+                <ScalarProperty Name="ВремяВыдачиМашины" ColumnName="ВремяВыдачиМашины" />
+                <ScalarProperty Name="МашинаID" ColumnName="МашинаID" />
+                <ScalarProperty Name="ВодительID" ColumnName="ВодительID" />
+                <ScalarProperty Name="ЗапросРассмотрен" ColumnName="ЗапросРассмотрен" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Машины">
+            <EntityTypeMapping TypeName="mainModel.Машины">
+              <MappingFragment StoreEntitySet="Машины">
+                <ScalarProperty Name="МашинаID" ColumnName="МашинаID" />
+                <ScalarProperty Name="МодельID" ColumnName="МодельID" />
+                <ScalarProperty Name="СостояниеID" ColumnName="СостояниеID" />
+                <ScalarProperty Name="MinScore" ColumnName="MinScore" />
+                <ScalarProperty Name="СтоимостьЧас" ColumnName="СтоимостьЧас" />
+                <ScalarProperty Name="Номер" ColumnName="Номер" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="МоделиМашин">
+            <EntityTypeMapping TypeName="mainModel.МоделиМашин">
+              <MappingFragment StoreEntitySet="МоделиМашин">
+                <ScalarProperty Name="МодельID" ColumnName="МодельID" />
+                <ScalarProperty Name="ФирмаID" ColumnName="ФирмаID" />
+                <ScalarProperty Name="ЛошСил" ColumnName="ЛошСил" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Пользователи">
+            <EntityTypeMapping TypeName="mainModel.Пользователи">
+              <MappingFragment StoreEntitySet="Пользователи">
+                <ScalarProperty Name="ПользовательID" ColumnName="ПользовательID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="ВодительID" ColumnName="ВодительID" />
+                <ScalarProperty Name="АналитикID" ColumnName="АналитикID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="РезультатЗапроса">
+            <EntityTypeMapping TypeName="mainModel.РезультатЗапроса">
+              <MappingFragment StoreEntitySet="РезультатЗапроса">
+                <ScalarProperty Name="РезультатID" ColumnName="РезультатID" />
+                <ScalarProperty Name="АналитикID" ColumnName="АналитикID" />
+                <ScalarProperty Name="МашинаВыдана" ColumnName="МашинаВыдана" />
+                <ScalarProperty Name="ПричинаОтказа" ColumnName="ПричинаОтказа" />
+                <ScalarProperty Name="ЗапросID" ColumnName="ЗапросID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Состояния">
+            <EntityTypeMapping TypeName="mainModel.Состояния">
+              <MappingFragment StoreEntitySet="Состояния">
+                <ScalarProperty Name="СостояниеID" ColumnName="СостояниеID" />
+                <ScalarProperty Name="Описание" ColumnName="Описание" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Фирмы">
+            <EntityTypeMapping TypeName="mainModel.Фирмы">
+              <MappingFragment StoreEntitySet="Фирмы">
+                <ScalarProperty Name="ФирмаID" ColumnName="ФирмаID" />
+                <ScalarProperty Name="Название" ColumnName="Название" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Фотографии">
+            <EntityTypeMapping TypeName="mainModel.Фотографии">
+              <MappingFragment StoreEntitySet="Фотографии">
+                <ScalarProperty Name="ФотоID" ColumnName="ФотоID" />
+                <ScalarProperty Name="МашинаID" ColumnName="МашинаID" />
+                <ScalarProperty Name="Фото" ColumnName="Фото" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Штрафы">
+            <EntityTypeMapping TypeName="mainModel.Штрафы">
+              <MappingFragment StoreEntitySet="Штрафы">
+                <ScalarProperty Name="ДополнительнаяИнформация" ColumnName="ДополнительнаяИнформация" />
+                <ScalarProperty Name="ШтрафID" ColumnName="ШтрафID" />
+                <ScalarProperty Name="ВодительID" ColumnName="ВодительID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

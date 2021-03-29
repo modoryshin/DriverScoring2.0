@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="0d88c71b39dd4bc7bd0d856732fc5252" Name="Diagram1" ZoomLevel="64">
+        <EntityTypeShape EntityType="mainModel.Аналитики" Width="1.5" PointX="8.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Анкета" Width="1.5" PointX="1.625" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Водители" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Запросы" Width="1.5" PointX="10.375" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Машины" Width="1.5" PointX="10.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.МоделиМашин" Width="1.5" PointX="7" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Пользователи" Width="1.5" PointX="2" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.РезультатЗапроса" Width="1.5" PointX="13" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Состояния" Width="1.5" PointX="5.375" PointY="11.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Фирмы" Width="1.5" PointX="4.25" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Фотографии" Width="1.5" PointX="13.125" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="mainModel.Штрафы" Width="1.5" PointX="3.375" PointY="5.875" IsExpanded="true" />
+        <AssociationConnector Association="mainModel.FK_Аналитики_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Пользователи_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_РезультатЗапроса_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Анкета_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Водители_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Запросы_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Пользователи_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Штрафы_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Запросы_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_РезультатЗапроса_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Машины_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Машины_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_Фотографии_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="mainModel.FK_МоделиМашин_0_0" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "NewDriverApplication";
+}
+
+<html>
+<head>
+    <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="header">
+        <div class="accountname">@ViewData["Name"]</div>
+        @*<a href="@Url.Action("LogOut")">Выйти из аккаунта</a>
+        <a href="@Url.Action("DriverPanel")">На главную</a>*@
+    </div>
+    <table>
+        @{
+            DriverScoring.Controllers.HomeController.db.Database.Connection.Open();
+            List<DriverScoring.DBModels.Машины> list = (from e in DriverScoring.Controllers.HomeController.db.Машины select e).ToList();
+            DriverScoring.Controllers.HomeController.db.Database.Connection.Close();
+            if (list.Count() != 0)
+            {
+                <tr>
+                    <th>Марка автомобиля</th>
+                    <th>Номер автомобиля</th>
+                    <th>Состояние автомобиля</th>
+                    <th>Стоимость за час</th>
+                    <th>Минимальный бал</th>
+                    <th></th>
+                </tr>
+                foreach(DriverScoring.DBModels.Машины e in list)
+                {
+                    <tr>
+                        <td>@e.МоделиМашин.Фирмы.Название</td>
+                        <td>@e.Номер</td>
+                        <td>@e.Состояния.Описание</td>
+                        <td>@e.СтоимостьЧас</td>
+                        <td>@e.MinScore</td>
+                        @using (Html.BeginForm())
+                        {
+                            <td>
+                                <input type="hidden" name="CarId" value=@e.МашинаID.ToString()>
+                                <input type="submit" value="Подать заявку а автомобиль" />
+                            </td>
+                        }
+                    </tr>
+                }
+            }
+        }
+    </table>
+</body>
+</html>
+

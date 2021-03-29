@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "AdministratorPanel";
+}
+
+<html>
+<head>
+    <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="header">
+        <div class="accountname">@ViewData["Name"]</div>
+        <!--<a href="@Url.Action("LogOut")">Выйти из аккаунта</a>-->
+        <!--<a href="@Url.Action("AdministratorPanel")">На главную</a>-->
+    </div>
+    <div class="content">
+        <table>
+            @{ List<DriverScoring.DBModels.Запросы> list = (List<DriverScoring.DBModels.Запросы>)ViewData["RequestList"]; }
+
+            @if (list.Count() > 0){
+                <tr>
+                    <th>Дата Запроса</th>
+                    <th>Автомобиль</th>
+                    <th>Заявитель</th>
+                    <th></th>
+                </tr>
+                foreach (DriverScoring.DBModels.Запросы e in list){
+                    <tr>
+                        <td>@e.ДатаЗапроса</td>
+                        <td>@{(e.Машины.МоделиМашин.Фирмы.Название + " " + e.Машины.МоделиМашин.МодельID.ToString()).ToString();};</td>
+                        <td>@{e.ВодительID.ToString();}</td>
+                        <td>
+                            @using (Html.BeginForm())
+                            {
+                                <input type="hidden" name="ReqId" value=@e.ЗапросID />
+                                <input type="submit" value="Перейти к заявке" />
+                            }                                
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr><td>В базе отсутствуют заявки</td></tr>
+            }
+        </table>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>
+

@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "Survey";
+}
+
+<html>
+<head>
+    <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="header">
+        <div class="accountname">@ViewData["Name"]</div>
+        @*<a href="@Url.Action("LogOut")">Выйти из аккаунта</a>
+        <a href="@Url.Action("DriverPanel")">На главную</a>*@
+    </div>
+    <div class="content">
+        <table>
+            @using (Html.BeginForm())
+            {
+                <tr>
+                    <td>Возраст</td>
+                    <td><input type="text" name="Age" placeholder="30" /></td>
+                </tr>
+                <tr>
+                    <td>Количество детей</td>
+                    <td><input type="text" name="Children" placeholder="1" /></td>
+                </tr>
+                <tr>
+                    <td>Семейное положение</td>
+                    <td>
+                        <select name="Family">
+                            <option>В браке</option>
+                            <option>Не в браке</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Наличие кредита</td>
+                    <td>
+                        <select name="Job">
+                            <option>Трудоустроен(а)</option>
+                            <option>Не трудоустроен(а)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Доход</td>
+                    <td><input type="text" name="Salary" placeholder="60000" /></td>
+                </tr>
+                <tr>
+                    <td>Трудоустройство</td>
+                    <td>
+                        <select name="Job">
+                            <option>Трудоустроен(а)</option>
+                            <option>Не трудоустроен(а)</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Наличие машины</td>
+                    <td>
+                        <select name="HaveCar">
+                            <option>Имеется автомобиль</option>
+                            <option>Не имеется автомобиль</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Количество аварий за 5 лет</td>
+                    <td><input type="text" name="Crashes" placeholder="1" /></td>
+                </tr>
+                <tr>
+                    <td>Стаж работы</td>
+                    <td><input type="text" name="JobYears" placeholder="2" /></td>
+                </tr>
+                <tr>
+                    <td>Стаж вождения</td>
+                    <td><input type="text" name="DriveYears" placeholder="2" /></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><input type="submit" value="Отправить" /></td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>
+

@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Register";
+}
+
+<html>
+
+<head>
+    <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="formcontainer">
+        @using (Html.BeginForm())
+        {
+<table class="registerForm">
+    @if (null != ViewData["Login"])
+    {
+<tr><td class="fieldTitle">Логин:</td><td><div class="field"><input type="text" name="RegisterLogin" placeholder="Введите логин" value=@ViewData["Login"] /></div> </td></tr>
+                    <tr><td class="fieldTitle">Пароль: </td><td><div class="field"><input type="password" name="RegisterPassword" placeholder="Придумайте пароль" value=@ViewData["Password"] /></div></td></tr>
+                                        <tr><td class="fieldTitle">Телефон: </td><td><div class="field"><input type="tel" name="RegisterPhone" placeholder="+7 (***) ***-**-**" value=@ViewData["Phone"] /></div></td></tr>
+                                                            <tr><td class="splitString" colspan="2">Введите данные для идентификации</td></tr>
+                                                                                <tr><td class="fieldTitle">ФИО: </td><td><div class="field"><input type="text" name="RegisterName" placeholder="ФИО" value=@ViewData["Name"] /></div></td></tr>
+                                                                                                    <tr><td class="fieldTitle">Дата рождения: </td><td><div class="field"><input type="date" name="BirthDate" placeholder="01.01.2021" value=@ViewData["BirthDate"] /></div></td></tr>
+                                                                                                                        <tr><td class="fieldTitle">Серия паспорта: </td><td><div class="field"><input type="text" name="Series" value=@ViewData["Series"] /></div></td></tr>
+                                                                                                                                            <tr><td class="fieldTitle">Номер паспорта: </td><td><div class="field"><input type="text" name="ID" value=@ViewData["ID"] /></div></td></tr>
+                                                                                                                                                                <tr><td class="splitString" colspan="2"><div class="field"><input type="submit" value="Зарегистрироваться" /></div></td></tr>
+ }
+                                                                                                                                                            else
+                                                                                                                                                            {
+                                                                                                                                            <tr><td class="fieldTitle">Логин:</td><td><div class="field"><input type="text" name="RegisterLogin" placeholder="Введите логин" /></div> </td></tr>
+                                                                                                                                                                <tr><td class="fieldTitle">Пароль: </td><td><div class="field"><input type="password" name="RegisterPassword" placeholder="Придумайте пароль" /></div></td></tr>
+                                                                                                                                                                                    <tr><td class="fieldTitle">Телефон: </td><td><div class="field"><input type="tel" name="RegisterPhone" placeholder="+7 (***) ***-**-**" value="" /></div></td></tr>
+                                                                                                                                                                                                        <tr><td class="splitString" colspan="2">Введите данные для идентификации</td></tr>
+                                                                                                                                                                                                                            <tr><td class="fieldTitle">ФИО: </td><td><div class="field"><input type="text" name="RegisterName" placeholder="ФИО" /></div></td></tr>
+                                                                                                                                                                                                                                                <tr><td class="fieldTitle">Дата рождения: </td><td><div class="field"><input type="date" name="BirthDate" placeholder="01.01.2021" /></div></td></tr>
+                                                                                                                                                                                                                                                                    <tr><td class="fieldTitle">Серия паспорта: </td><td><div class="field"><input type="text" name="Series" /></div></td></tr>
+                                                                                                                                                                                                                                                                                        <tr><td class="fieldTitle">Номер паспорта: </td><td><div class="field"><input type="text" name="ID" /></div></td></tr>
+                                                                                                                                                                                                                                                                                                            <tr><td class="splitString" colspan="2"><div class="field"><input type="submit" value="Зарегистрироваться" /></div></td></tr>}
+</table>}
+    </div>
+    @if (null != TempData["alertMessage"])
+    {
+<script type="text/javascript">
+       alert('@TempData["alertMessage"]');
+</script>}
+    @*<a href="@Url.Action("LogIn")">Войти</a>*@
+</body>
+
+</html>

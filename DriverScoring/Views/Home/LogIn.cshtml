@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewBag.Title = "LogIn";
+}
+
+<html>
+
+<head>
+    <link href="@Url.Content("~/Content/Style.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div class="formcontainer">
+        @using (Html.BeginForm())
+        {
+        <table class="registerForm">
+            @if (null != ViewData["Login"])
+            {
+                <tr><td class="fieldTitle">Логин:</td><td><input class="SignInLogin" type="text" name="SignInLogin" placeholder="Введите логин" value=@ViewData["Login"] /></td></tr>
+            }
+            else
+            {
+                <tr><td class="fieldTitle">Логин:</td><td><input class="SignInLogin" type="text" name="SignInLogin" placeholder="Введите логин" /></td></tr>
+            }
+            <tr><td>Пароль:</td><td><input class="SignInPassword" type="password" name="SignInPassword" placeholder="Введите пароль" /></td></tr>
+            <tr><td class="splitString" colspan="2"><input class="FormSub" type="submit" value="Войти" /></td></tr>
+        </table>    
+        }
+        @if(null != TempData["alertMessage"])
+    {
+    <script type="text/javascript">
+       alert('@TempData["alertMessage"]');
+    </script>
+    }
+        <a href="@Url.Action("Register")">Зарегистрироваться</a>
+    </div>
+</body>
+
+</html>
+
