@@ -104,6 +104,7 @@ namespace DriverScoring.Controllers
                 return View();
             }
         }
+
         public ActionResult Register()
         {
             ViewBag.logged = currentuser != null;
@@ -165,27 +166,6 @@ namespace DriverScoring.Controllers
 
         }
 
-        public ActionResult AdministratorPanel()
-        {
-            if (currentuser != null)
-            {
-                ViewData.Clear();
-            db.Database.Connection.Open();
-            ViewData["User"] = currentuser.Login;
-            List<DBModels.Запросы> list = (from e in db.Запросы select e).ToList();
-            db.Database.Connection.Close();
-            ViewData["RequestList"] = list;
-                ViewBag.logged = currentuser != null;
-                usertype = "admin";
-                ViewBag.type = usertype;
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("LogIn");
-            }
-        }
-
         public ActionResult DriverPanel()
         {
             if (currentuser != null)
@@ -241,6 +221,145 @@ namespace DriverScoring.Controllers
             }
         }
 
+        public ActionResult NewDriverApplication()
+        {
+            if (currentuser != null)
+            {
+                ViewData["Name"] = currentuser.Login;
+                ViewBag.logged = currentuser != null;
+                ViewBag.type = usertype;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogIn");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult NewDriverApplication(string CarId)
+        {
+            DBModels.Запросы obj = new DBModels.Запросы();
+            obj.ВодительID = currentuser.ВодительID;
+            obj.Водители = db.Водители.Where(x => x.ВодительID == currentuser.ВодительID).First();
+            obj.ЗапросРассмотрен = 1;
+            obj.ДатаЗапроса = DateTime.Today.Date.ToString();
+            db.Database.Connection.Open();
+            long id = 0;
+            try
+            {
+                id = (long)db.Запросы.Max(e => e.ЗапросID) + 1;
+            }
+            catch
+            {
+
+            }
+            obj.ЗапросID = id;
+            obj.МашинаID = (long)(Convert.ToInt32(CarId));
+            obj.Машины = db.Машины.Where(x => x.МашинаID == obj.МашинаID).First();
+            obj.ВремяВыдачиМашины = "";
+            obj.ВремяПолученияМашины = "";
+            db.Запросы.Add(obj);
+            db.SaveChanges();
+            db.Database.Connection.Close();
+            return RedirectToAction("DriverApplication");
+        }
+
+        public ActionResult Survey()
+        {
+            if (currentuser != null)
+            {
+                db.Database.Connection.Open();
+                List<DBModels.Анкета> list = (from e in db.Анкета where (e.ВодительID == currentuser.ВодительID) select e).ToList();
+                db.Database.Connection.Close();
+                if (list.Count == 0)
+                {
+                    ViewData["Name"] = currentuser.Login;
+                    ViewBag.logged = currentuser != null;
+                    ViewBag.type = usertype;
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction("DriverPanel");
+                }
+            }
+            else
+            {
+                return RedirectToAction("LogIn");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Survey(string Age, string Children, string Family, string Loan, string Salary, string Job, string HaveCar, string Crashes, string JobYears, string DriveYears)
+        {
+            db.Database.Connection.Open();
+            DBModels.Анкета obj = new DBModels.Анкета();
+            obj.АварииЗаПятьЛет = (long)Convert.ToInt32(Crashes);
+            obj.ВодительID = currentuser.ВодительID;
+            obj.Возраст = (long)Convert.ToInt32(Age);
+            obj.Дети = (long)Convert.ToInt32(Children);
+            obj.Доход = (long)Convert.ToInt32(Salary);
+            if (Loan == "Имеется кредит")
+                obj.ЕстьКредит = 0;
+            else
+            if (Family == "В браке")
+                obj.СемейноеПоложение = 0;
+            else
+                obj.СемейноеПоложение = 1;
+            if (HaveCar == "Имеется автомобиль")
+                obj.НаличиеМашины = 0;
+            else
+                obj.НаличиеМашины = 1;
+            obj.СтажВождения = (long)Convert.ToInt32(DriveYears);
+            obj.СтажРаботы = (long)Convert.ToInt32(JobYears);
+            if (Job == "Трудоустроен(а)")
+                obj.СтажРаботы = 0;
+            else
+                obj.Трудоустройство = 1;
+            long id = 0;
+            try
+            {
+                id = (long)db.Анкета.Max(e => e.АнкетаID) + 1;
+            }
+            catch
+            {
+
+            }
+            obj.АнкетаID = id;
+            db.Анкета.Add(obj);
+            db.SaveChanges();
+            db.Database.Connection.Close();
+            return RedirectToAction("DriverPanel");
+        }
+
+        public ActionResult AdministratorPanel()
+        {
+            if (currentuser != null)
+            {
+                ViewData.Clear();
+                db.Database.Connection.Open();
+                ViewData["User"] = currentuser.Login;
+                List<DBModels.Запросы> list = (from e in db.Запросы select e).ToList();
+                db.Database.Connection.Close();
+                ViewData["RequestList"] = list;
+                ViewBag.logged = currentuser != null;
+                usertype = "admin";
+                ViewBag.type = usertype;
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("LogIn");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult AdministratorPanel(string ReqId)
+        {
+            return RedirectToAction("ApplicationInfo", new { Id = ReqId });
+        }
+
         public ActionResult ApplicationInfo(string Id)
         {
             if (currentuser != null)
@@ -256,12 +375,6 @@ namespace DriverScoring.Controllers
             {
                 return RedirectToAction("LogIn");
             }
-        }
-
-        [HttpPost]
-        public ActionResult AdministratorPanel(string ReqId)
-        {
-            return RedirectToAction("ApplicationInfo",new { Id=ReqId});
         }
 
         public ActionResult ApplicationDecision(string dec,long requestid)
@@ -350,120 +463,12 @@ namespace DriverScoring.Controllers
             db.Database.Connection.Close();
             return RedirectToAction("AdministratorPanel");
         }
-        public ActionResult NewDriverApplication()
-        {
-            if (currentuser != null)
-            {
-                ViewData["Name"] = currentuser.Login;
-                ViewBag.logged = currentuser != null;
-                ViewBag.type = usertype;
-                return View();
-            }
-            else
-            {
-                return RedirectToAction("LogIn");
-            }
-        }
-        [HttpPost]
-        public ActionResult NewDriverApplication(string CarId)
-        {
-            DBModels.Запросы obj = new DBModels.Запросы();
-            obj.ВодительID = currentuser.ВодительID;
-            obj.Водители = db.Водители.Where(x => x.ВодительID == currentuser.ВодительID).First();
-            obj.ЗапросРассмотрен = 1;
-            obj.ДатаЗапроса = DateTime.Today.Date.ToString();
-            db.Database.Connection.Open();
-            long id = 0;
-            try
-            {
-                id = (long)db.Запросы.Max(e => e.ЗапросID) + 1;
-            }
-            catch
-            {
 
-            }
-            obj.ЗапросID = id;
-            obj.МашинаID = (long)(Convert.ToInt32(CarId));
-            obj.Машины = db.Машины.Where(x => x.МашинаID == obj.МашинаID).First();
-            obj.ВремяВыдачиМашины = "";
-            obj.ВремяПолученияМашины = "";
-            db.Запросы.Add(obj);
-            db.SaveChanges();
-            db.Database.Connection.Close();
-            return RedirectToAction("DriverApplication");
-        }
-        public ActionResult Survey()
-        {
-            if (currentuser != null)
-            {
-                db.Database.Connection.Open();
-                List<DBModels.Анкета> list = (from e in db.Анкета where (e.ВодительID == currentuser.ВодительID) select e).ToList();
-                db.Database.Connection.Close();
-                if (list.Count == 0)
-                {
-                    ViewData["Name"] = currentuser.Login;
-                    ViewBag.logged = currentuser != null;
-                    ViewBag.type = usertype;
-                    return View();
-                }
-                else
-                {
-                    return RedirectToAction("DriverPanel");
-                }
-            }
-            else
-            {
-                return RedirectToAction("LogIn");
-            }
-        }
         public ActionResult LogOut()
         {
             currentuser = null;
             usertype = "";
             return RedirectToAction("LogIn");
-        }
-
-        [HttpPost]
-        public ActionResult Survey(string Age, string Children, string Family, string Loan, string Salary, string Job, string HaveCar, string Crashes, string JobYears, string DriveYears)
-        {
-            db.Database.Connection.Open();
-            DBModels.Анкета obj = new DBModels.Анкета();
-            obj.АварииЗаПятьЛет = (long)Convert.ToInt32(Crashes);
-            obj.ВодительID = currentuser.ВодительID;
-            obj.Возраст = (long)Convert.ToInt32(Age);
-            obj.Дети = (long)Convert.ToInt32(Children);
-            obj.Доход = (long)Convert.ToInt32(Salary);
-            if (Loan == "Имеется кредит")
-                obj.ЕстьКредит = 0;
-            else
-            if (Family == "В браке")
-                obj.СемейноеПоложение = 0;
-            else
-                obj.СемейноеПоложение = 1;
-            if (HaveCar == "Имеется автомобиль")
-                obj.НаличиеМашины = 0;
-            else
-                obj.НаличиеМашины = 1;
-            obj.СтажВождения = (long)Convert.ToInt32(DriveYears);
-            obj.СтажРаботы = (long)Convert.ToInt32(JobYears);
-            if (Job == "Трудоустроен(а)")
-                obj.СтажРаботы = 0;
-            else
-                obj.Трудоустройство = 1;
-            long id = 0;
-            try
-            {
-                id = (long)db.Анкета.Max(e => e.АнкетаID) + 1;
-            }
-            catch
-            {
-
-            }
-            obj.АнкетаID = id;
-            db.Анкета.Add(obj);
-            db.SaveChanges();
-            db.Database.Connection.Close();
-            return RedirectToAction("DriverPanel");
         }
     }
 }

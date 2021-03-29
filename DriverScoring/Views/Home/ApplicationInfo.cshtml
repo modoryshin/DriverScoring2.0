@@ -16,16 +16,18 @@
     </div>
     <div class="content">
         @{DriverScoring.Controllers.HomeController.db.Database.Connection.Open();
-            List<DriverScoring.DBModels.Запросы> list = (from e in DriverScoring.Controllers.HomeController.db.Запросы where (e.ЗапросID == (long)ViewData["Id"]) select e).ToList();
+            //List<DriverScoring.DBModels.Запросы> list = (from e in DriverScoring.Controllers.HomeController.db.Запросы where (e.ЗапросID == (long)ViewData["Id"]) select e).ToList();
+            long id = Int64.Parse(ViewData["Id"].ToString());
+            DriverScoring.DBModels.Запросы list = DriverScoring.Controllers.HomeController.db.Запросы.Where(x => x.ЗапросID == id).First();
             DriverScoring.Controllers.HomeController.db.Database.Connection.Close();
         }
         <table>
-            <tr><td>Дата запроса</td><td>@list[0].ДатаЗапроса</td></tr>
-            <tr><td>Заявитель</td><td>@list[0].Водители.ПаспортныеДанные</td></tr>
+            <tr><td>Дата запроса</td><td>@list.ДатаЗапроса</td></tr>
+            <tr><td>Заявитель</td><td>@list.Водители.ПаспортныеДанные</td></tr>
             
         </table>
-            <div class="acceptbutton"><a href="@Url.Action("ApplicationDecision", new {dec="Принять",requestid=list[0].ЗапросID })">Принять заявление</a></div>
-            <div class="acceptbutton"><a href="@Url.Action("ApplicationDecision", new {dec="Отказать" , requestid=list[0].ЗапросID})">Отказать</a></div>
+            <div class="acceptbutton"><a href="@Url.Action("ApplicationDecision", new {dec="Принять",requestid=list.ЗапросID })">Принять заявление</a></div>
+            <div class="acceptbutton"><a href="@Url.Action("ApplicationDecision", new {dec="Отказать" , requestid=list.ЗапросID})">Отказать</a></div>
         <div class="Reqblock"></div>
     </div>
     <div class="footer"></div>
