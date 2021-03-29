@@ -246,8 +246,8 @@ namespace DriverScoring.Controllers
             if (currentuser != null)
             {
                 ViewData.Clear();
-            ViewData["Id"] = Id;
-            ViewData["Name"] = currentuser.Login;
+                ViewData["Id"] = Id;
+                ViewData["Name"] = currentuser.Login;
                 ViewBag.logged = currentuser != null;
                 ViewBag.type = usertype;
                 return View();
@@ -261,7 +261,7 @@ namespace DriverScoring.Controllers
         [HttpPost]
         public ActionResult AdministratorPanel(string ReqId)
         {
-            return RedirectToAction("Application info",new { Id=ReqId});
+            return RedirectToAction("ApplicationInfo",new { Id=ReqId});
         }
 
         public ActionResult ApplicationDecision(string dec,long requestid)
@@ -369,8 +369,9 @@ namespace DriverScoring.Controllers
         {
             DBModels.Запросы obj = new DBModels.Запросы();
             obj.ВодительID = currentuser.ВодительID;
+            obj.Водители = db.Водители.Where(x => x.ВодительID == currentuser.ВодительID).First();
             obj.ЗапросРассмотрен = 1;
-            obj.ДатаЗапроса = DateTime.Today.ToString();
+            obj.ДатаЗапроса = DateTime.Today.Date.ToString();
             db.Database.Connection.Open();
             long id = 0;
             try
@@ -383,6 +384,7 @@ namespace DriverScoring.Controllers
             }
             obj.ЗапросID = id;
             obj.МашинаID = (long)(Convert.ToInt32(CarId));
+            obj.Машины = db.Машины.Where(x => x.МашинаID == obj.МашинаID).First();
             obj.ВремяВыдачиМашины = "";
             obj.ВремяПолученияМашины = "";
             db.Запросы.Add(obj);

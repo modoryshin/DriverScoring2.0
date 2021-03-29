@@ -15,7 +15,7 @@
         <!--<a href="@Url.Action("AdministratorPanel")">На главную</a>-->
     </div>
     <div class="content">
-        <table>
+        <table width="100%">
             @{ List<DriverScoring.DBModels.Запросы> list = (List<DriverScoring.DBModels.Запросы>)ViewData["RequestList"]; }
 
             @if (list.Count() > 0){
@@ -28,8 +28,8 @@
                 foreach (DriverScoring.DBModels.Запросы e in list){
                     <tr>
                         <td>@e.ДатаЗапроса</td>
-                        <td>@{(e.Машины.МоделиМашин.Фирмы.Название + " " + e.Машины.МоделиМашин.МодельID.ToString()).ToString();};</td>
-                        <td>@{e.ВодительID.ToString();}</td>
+                        <td>@(e.Машины.МоделиМашин.Фирмы.Название + " " + e.Машины.МоделиМашин.МодельID.ToString())</td>
+                        <td>@e.ВодительID.ToString()</td>
                         <td>
                             @using (Html.BeginForm())
                             {
