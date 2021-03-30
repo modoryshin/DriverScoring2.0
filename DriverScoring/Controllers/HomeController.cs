@@ -340,7 +340,7 @@ namespace DriverScoring.Controllers
                 ViewData.Clear();
                 db.Database.Connection.Open();
                 ViewData["User"] = currentuser.Login;
-                List<DBModels.Запросы> list = (from e in db.Запросы select e).ToList();
+                List<DBModels.Запросы> list = (from e in db.Запросы where e.ЗапросРассмотрен == 1 select e).ToList();
                 db.Database.Connection.Close();
                 ViewData["RequestList"] = list;
                 ViewBag.logged = currentuser != null;
