@@ -133,7 +133,7 @@ namespace DriverScoring.Controllers
                 db.Пользователи.Add(obj);
                 db.SaveChanges();
                 DBModels.Водители obj1 = new DBModels.Водители();
-                obj1.ПользовательID = id;obj1.ПаспортныеДанные = Series + "|" + ID;obj1.ДеньРождения = BirthDate;obj1.ДатаРегистрации = DateTime.Today.ToString();
+                obj1.ПользовательID = id;obj1.ПаспортныеДанные = Series + "|" + ID;obj1.ДеньРождения = BirthDate;obj1.ДатаРегистрации = DateTime.Today.Date.ToShortDateString();
                 id = 0;
                 try
                 {
@@ -243,7 +243,7 @@ namespace DriverScoring.Controllers
             obj.ВодительID = currentuser.ВодительID;
             obj.Водители = db.Водители.Where(x => x.ВодительID == currentuser.ВодительID).First();
             obj.ЗапросРассмотрен = 1;
-            obj.ДатаЗапроса = DateTime.Today.Date.ToString();
+            obj.ДатаЗапроса = DateTime.Today.Date.ToShortDateString();
             db.Database.Connection.Open();
             long id = 0;
             try
